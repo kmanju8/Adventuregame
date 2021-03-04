@@ -1,0 +1,51 @@
+{
+    "start": {
+      "message": "Do you want to play a game? yes/no",
+      "yes": "firstStep",
+      "no": "end"
+    },
+    
+    "end": {
+      "message": "Do you want to play again? yes/no",
+      "yes": "start",
+      "no": "end"
+    },
+
+    "firstStep": {
+      "message": "Welcome to *NAME OF THE GAME*. This is a text based adventure game written in Node.js. The aim of the game is win your freedom by battling against your enemies and defeat them with your trivia knowledege... Would you like to start your adventure? yes/no",
+      "yes": "secondStep",
+      "no": "end"
+    },
+
+    "secondStep": {
+      "message": "The game shall now begin! You find yourself in a dimly lit room.... You notice a table with a lamp on it, and a painting faintly visible behind it. Which of the table, lamp or painting do you look under?",
+      "table": "deathbytable",
+      "lamp": "lampkey",
+      "painting": "paintingtunnel",
+      "default": "secondStep"
+    },
+
+    "deathbytable":{
+        "message": "You catch something out the corner of your eye under the table. You duck under the table to get a better look, but the table crashes down on you. GAME OVER"
+    },
+
+    "paintingtunnel": {
+      "message": "You find a secret tunnel behind the painting. Do you want to proceed and enter the tunnel?",
+      "yes": "round2",
+      "no": "secondStep"
+    },
+
+    "lampkey": {
+        "message": "You find a key under the lamp that opens the locked door of the room. You unlock the door and step out of the room into a hallway. Which way do you want to go? left/right",
+        "left": "round2",
+        "right": "round2"
+      },
+
+    "round2": {
+      "message": "There is an enemy standing in front of you, holding a sword. The options: A) Fight B) Scream C) Run D) Make peace. Choose one: A/B/C/D.",
+      "A":"?fightfunction",
+      "B": "",
+      "C": "",
+      "D": ""
+    }
+  }
