@@ -1,8 +1,4 @@
-const fetch = require('node-fetch');
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+
 
 export function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -15,6 +11,13 @@ export function shuffleArray(array) {
 
 
 export function multiChoiceBat(choice){
+
+const fetch = require('node-fetch');
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 let damage=0;
 let correct = false;
 //choice will be user choice of difficulty, to change damage output

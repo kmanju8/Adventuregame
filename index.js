@@ -1,4 +1,6 @@
-import shuffleArray, multiChoiceBat from "multichoice.js";
+import {shuffleArray, multiChoiceBat} from "./multichoice.js";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 const rl = require("readline");
 const readline = rl.createInterface({
