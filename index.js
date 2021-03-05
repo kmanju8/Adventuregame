@@ -6,7 +6,6 @@ const readline = rl.createInterface({
   output: process.stdout,
 });
 
-
 // JSON file parsing containing story decision logic and dialogue
 
 const fs = require('fs');
@@ -23,7 +22,7 @@ function startGame() {
     if (step) {
       readline.question(`${step.message || ""} `, (input) => {
         handleAnswer(input);
-        
+
       });
     }
   }
@@ -37,6 +36,10 @@ function startGame() {
       step = steps[currentStep][answer];
     } else if ("default" in steps[currentStep]) {
       step = steps[currentStep].default;
+    } else if (answer === "fight") {
+      startFight();
+    } else if (answer === "continue") {
+      step = "continue";
     } else {
       step = "end";
     }
@@ -54,8 +57,15 @@ function startGame() {
     logStep();
   }
 
+  function startFight() {
+    console.log("The fight occurs");
+    readline.question("You have completed your first fight! Type 'continue' to proceed... ", function (response) { 
+    handleAnswer(response)
+  })}
+
   console.clear();
   logStep();
 }
 
-startGame();
+
+startGame(); 
