@@ -38,19 +38,6 @@ function startGame() {
     } else {
       step = "end";
     }
-    
-    //had an idea for calling other funcions, will try to implement
-    
-    /*if (answer === "yes") {
-      step = steps[currentStep][answer];
-    } else if (answer === "A" || answer === "B" || answer === "C" || answer === "D" ) { 
-        console.log("Multichoice works!")
-        step = steps[currentStep].yes;
-    } else if (answer === "no") {
-      step = steps[currentStep].answer;
-    } else {
-      steps[currentStep].general;
-    }*/
 
     if (typeof step === "function") {
       step();

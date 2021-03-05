@@ -14,17 +14,25 @@ function shuffleArray(array) {
 }
 
 var damage;
+var correct = false;
 fetch("https://opentdb.com/api.php?amount=10")
 .then(request=>request.json()).then(function(data){
-    const answers = data.incorrect_answers.concat(data.correct_answer);
+
+    const answers = data.results[0].incorrect_answers;
+    answers.push(data.results[0].correct_answer);
     shuffleArray(answers);
     console.log(data.results[0].question);
-    for(const i of answers){
-        console.log(i);
+    for(const i in answers){
+        console.log((parseInt(i)+1),")",answers[i]);
     }
     
-    readline.question(data.results[0].question, ans => {
-        console.log(ans);
+    readline.question("", ans => {
+        if(answers[parseInt(ans)-1]===data.results[0].correct_answer){
+            correct = true;
+            console.log("correct!")
+        } else{
+            console.log("Incorrect! You take 2 damage.")
+        }
         readline.close();
     })
 }).catch(function () {
