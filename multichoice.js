@@ -4,7 +4,7 @@ const readline = require('readline').createInterface({
     output: process.stdout
 });
 
-function shuffleArray(array) {
+export function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
@@ -13,11 +13,15 @@ function shuffleArray(array) {
     }
 }
 
-var damage;
-var correct = false;
-fetch("https://opentdb.com/api.php?amount=10")
+
+export function multiChoiceBat(choice){
+let damage=0;
+let correct = false;
+//choice will be user choice of difficulty, to change damage output
+fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice))
 .then(request=>request.json()).then(function(data){
 
+    const difficulty = data.results[0].difficulty;
     const answers = data.results[0].incorrect_answers;
     answers.push(data.results[0].correct_answer);
     shuffleArray(answers);
@@ -28,13 +32,32 @@ fetch("https://opentdb.com/api.php?amount=10")
     
     readline.question("", ans => {
         if(answers[parseInt(ans)-1]===data.results[0].correct_answer){
+            switch(difficulty){
+                case "easy":
+                    damage = 3;
+                    break;
+                case "medium":
+                    damage = 5;
+                    break;
+                case "hard":
+                    damage = 7;
+                    break;
+            }
             correct = true;
-            console.log("correct!")
+            console.log("Correct!")
         } else{
             console.log("Incorrect! You take 2 damage.")
+            damage = -2;
         }
         readline.close();
     })
 }).catch(function () {
-    console.log("Promise Rejected");
+    console.log("Whoops, there was an error in the program. Have a free 2 damage on us ;)");
+    damage = 2;
 });
+
+return damage;
+}
+
+//Use this to test if function works by running multichoice.js  
+//multiChoiceBat("easy");

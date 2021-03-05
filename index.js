@@ -1,3 +1,5 @@
+import shuffleArray, multiChoiceBat from "multichoice.js";
+
 const rl = require("readline");
 const readline = rl.createInterface({
   input: process.stdin,
