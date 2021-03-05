@@ -36,9 +36,9 @@ function startGame() {
       step = steps[currentStep][answer];
     } else if ("default" in steps[currentStep]) {
       step = steps[currentStep].default;
-    } else if (answer === "fight") {
+    } else if (answer.toLowerCase() === "fight") {
       startFight();
-    } else if (answer === "continue") {
+    } else if (answer.toLowerCase() === "continue") {
       step = "continue";
     } else {
       step = "end";
