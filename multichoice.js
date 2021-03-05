@@ -23,16 +23,16 @@ const readline = require('readline').createInterface({
 let damage=0;
 let correct = false;
 //choice will be user choice of difficulty, to change damage output
-fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice))
+fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice,"&encode=url3986"))
 .then(request=>request.json()).then(function(data){
 
     const difficulty = data.results[0].difficulty;
     const answers = data.results[0].incorrect_answers;
     answers.push(data.results[0].correct_answer);
     shuffleArray(answers);
-    console.log(data.results[0].question);
+    console.log(decodeURIComponent(data.results[0].question));
     for(const i in answers){
-        console.log((parseInt(i)+1),")",answers[i]);
+        console.log((parseInt(i)+1),")",decodeURIComponent(answers[i]));
     }
     
     readline.question("", ans => {
@@ -65,4 +65,4 @@ return damage;
 }
 
 //Use this to test if function works by running multichoice.js  
-//multiChoiceBat("easy");
+multiChoiceBat("easy");
