@@ -1,6 +1,11 @@
 import {shuffleArray, multiChoiceBat} from "./multichoice.js";
 import { createRequire } from 'module';
+import { moveMessagePortToContext } from "node:worker_threads";
+import { resolve } from "node:path";
 const require = createRequire(import.meta.url);
+
+import promptSync from 'prompt-sync';
+const prompt = promptSync({sigint: true});
 
 const rl = require("readline");
 const readline = rl.createInterface({
@@ -59,15 +64,39 @@ function startGame() {
     logStep();
   }
 
-  function startFight() {
-    console.log("The fight occurs");
-    readline.question("You have completed your first fight! Type 'continue' to proceed... ", function (response) { 
-    handleAnswer(response)
-  })}
+    const trivia = () => {
+        return new Promise((resolve, reject) => {
+          readline.question("To win this fight, you must correctly answer a trivia question. What difficulty do you choose? easy/medium/hard ", (answer) => {
+              multiChoiceBat(answer);
+              resolve()
+        })
+        })
+    }
 
-  console.clear();
-  logStep();
-}
+    const moveOn = () => {
+        return new Promise((resolve, reject) => {
+          readline.question("You have completed your fight! Enter continue to proceed...", (answer) => {
+            handleAnswer(answer)
+            resolve()
+          })
+        })
+      }
+
+    const startFight = async () => {
+    try {
+        await trivia();
+        await moveOn();
+    } catch (err) {
+        console.log("Error!")
+    }
+    }
+
+    console.clear();
+    logStep();
+};
+
+
+
 
 
 startGame(); 
