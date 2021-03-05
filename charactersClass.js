@@ -10,7 +10,7 @@ class Character {
 class Enemy extends Character {
     constructor(name, id, intelligence) {
         super(name, id);
-        this.intellegence = intelligence; // change this 
+        this.intelligence = intelligence; // change this 
     }
 };
 
