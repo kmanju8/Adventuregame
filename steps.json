@@ -31,19 +31,26 @@
 
     "paintingtunnel": {
       "message": "You find a secret tunnel behind the painting. Do you want to proceed and enter the tunnel?",
-      "yes": "round2",
+      "yes": "enemy",
       "no": "secondStep"
     },
 
     "lampkey": {
-        "message": "You find a key under the lamp that opens the locked door of the room. You unlock the door and step out of the room into a hallway. Which way do you want to go? left/right",
-        "left": "round2",
-        "right": "round2"
+        "message": "You've found a key! It opens the locked door of the room. You step out of the room into a hallway. Which way do you want to go? left/right",
+        "left": "enemy",
+        "right": "enemy"
       },
 
-    "round2": {
-      "message": "There is an enemy standing in front of you, holding a sword. The options: A) Fight B) Scream C) Run D) Make peace. Choose one: A/B/C/D.",
-      "A":"?fightfunction",
+    "enemy": {
+      "message": "There is an enemy standing in front of you, holding a sword. The options: Fight/Scream/Run/Make peace.",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+
+    "continue": {
+      "message": "Where would you like to go next?",
+      "A":"",
       "B": "",
       "C": "",
       "D": ""
