@@ -1,4 +1,5 @@
-
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 export function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -9,7 +10,8 @@ export function shuffleArray(array) {
     }
 }
 
-
+//Function takes difficulty input. Depending on choice of difficulty, damage output is changed.
+//Function returns damage done. If positive, damage applied to enemy, if negative, applied to player.
 export function multiChoiceBat(choice){
 
 const fetch = require('node-fetch');
