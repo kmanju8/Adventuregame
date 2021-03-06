@@ -1,5 +1,5 @@
 
-class Character {
+export class Character {
     constructor(name, id) {
         this.name = name;
         this.id = id;
@@ -7,14 +7,16 @@ class Character {
    
 };
 
-class Enemy extends Character {
-    constructor(name, id, intelligence) {
+export class Enemy extends Character {
+    constructor(name, id, intelligence, strength) {
         super(name, id);
-        this.intelligence = intelligence; // change this 
+        this.intelligence = intelligence; 
+        this.strength = strength;
+        this.health = 100;
     }
 };
 
-class Player extends Character {
+export class Player extends Character {
     constructor(name, id, someotherproperty) {
         super(name, id, age);
         this.someotherproperty = someotherproperty; // change this
@@ -22,14 +24,14 @@ class Player extends Character {
 };
 
 
- let hannibal = new Enemy("Hannibal", 0); 
- let norman = new Enemy("Norman", 1); 
- let igor = new Enemy("Igor", 2)
+ export let hannibal = new Enemy("Hannibal", 0, 6, 4, 100); 
+ export let norman = new Enemy("Norman", 1, 3, 8, 100); 
+ export let igor = new Enemy("Igor", 2, 4, 9, 100)
 
 
-let enemy;
-function chooseEnemy() {
 
+export function chooseEnemy() {
+    let enemy;
     let random = Math.round(Math.random() * 2); 
 
     switch(random) {
