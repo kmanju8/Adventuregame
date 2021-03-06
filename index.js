@@ -1,11 +1,18 @@
+import * as char from "./charactersClass.js"
 import {shuffleArray, multiChoiceBat} from "./multichoice.js";
 import { createRequire } from 'module';
 import { moveMessagePortToContext } from "node:worker_threads";
 import { resolve } from "node:path";
 const require = createRequire(import.meta.url);
 
+
+
+// prompt sync 
+
 import promptSync from 'prompt-sync';
 const prompt = promptSync({sigint: true});
+
+// readline
 
 const rl = require("readline");
 const readline = rl.createInterface({
@@ -18,6 +25,8 @@ const readline = rl.createInterface({
 const fs = require('fs');
 let rawstep = fs.readFileSync('steps.json');
 const steps = JSON.parse(rawstep);
+
+// start game
 
 function startGame() {
 
@@ -34,7 +43,9 @@ function startGame() {
     }
   }
 
-  function handleAnswer(answer) {
+  // story function 
+
+    function handleAnswer(answer) {
     let step;
 
     if (answer == steps[currentStep].message) {
@@ -44,17 +55,19 @@ function startGame() {
     } else if ("default" in steps[currentStep]) {
       step = steps[currentStep].default;
     } else if (answer.toLowerCase() === "fight") {
+      char.chooseEnemy();
       startFight();
+      console.log('Fight is finished!')
     } else if (answer.toLowerCase() === "continue") {
       step = "continue";
     } else {
       step = "end";
     }
 
-    if (typeof step === "function") {
+    /* if (typeof step === "function") {
       step();
       return; 
-    }
+    } */ 
 
     if (typeof step === "string") {
       currentStep = step;
@@ -73,19 +86,22 @@ function startGame() {
         })
     }
 
-    const moveOn = () => {
+    /* const moveOn = () => {
         return new Promise((resolve, reject) => {
           readline.question("You have completed your fight! Enter continue to proceed...", (answer) => {
             handleAnswer(answer)
             resolve()
           })
         })
-      }
+      } */ 
+
+
+    
+    
 
     const startFight = async () => {
     try {
         await trivia();
-        await moveOn();
     } catch (err) {
         console.log("Error!")
     }
@@ -95,8 +111,6 @@ function startGame() {
     logStep();
 };
 
+startGame()
 
 
-
-
-startGame(); 
