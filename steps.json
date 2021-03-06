@@ -12,40 +12,44 @@
     },
 
     "firstStep": {
-      "message": "Welcome to *NAME OF THE GAME*. This is a text based adventure game written in Node.js. The aim of the game is win your freedom by battling against your enemies and defeat them with your trivia knowledege... Would you like to start your adventure? yes/no",
+      "message": "Welcome to NAME. Would you like to start your adventure? yes/no",
       "yes": "secondStep",
       "no": "end"
     },
 
     "secondStep": {
-      "message": "The game shall now begin! You find yourself in a dimly lit room.... You notice a table with a lamp on it, and a painting faintly visible behind it. Which of the table, lamp or painting do you look under?",
-      "table": "deathbytable",
-      "lamp": "lampkey",
-      "painting": "paintingtunnel",
+      "message": "The game shall now begin!\n...\nYou wrench your eyes open. Rough grey stone. Grey stone ceiling. Your head hurts, and -- You're lying on the floor. You're staring at the ceiling, and it's rough and grey, and you don't recognize it. You can't remember how you got here...You look around and find a dimly lit room....You notice a table with a lamp on it, and a painting faintly visible behind it.\nWhich of the table, lamp or painting do you look under?",
+      "table": "tableRoute",
+      "lamp": "lampRoute",
+      "painting": "paintingRoute",
       "default": "secondStep"
     },
 
-    "deathbytable":{
-        "message": "You catch something out the corner of your eye under the table. You duck under the table to get a better look, but the table crashes down on you. GAME OVER"
+    "tableRoute":{
+        "message": "You catch something out the corner of your eye under the table.\nYou duck under the table to get a better look, but the table crashes down on you.\nGAME OVER!\nWould you like to play again?",
+        "yes": "start",
+        "no": "end"
     },
 
-    "paintingtunnel": {
-      "message": "You find a secret tunnel behind the painting. Do you want to proceed and enter the tunnel?",
+    "paintingRoute": {
+      "message": "You find a secret tunnel behind the painting.\nDo you want to proceed and enter the tunnel?",
       "yes": "enemy",
       "no": "secondStep"
     },
 
-    "lampkey": {
-        "message": "You've found a key! It opens the locked door of the room. You step out of the room into a hallway. Which way do you want to go? left/right",
+    "lampRoute": {
+        "message": "You've found a key!\nIt opens the locked door of the room.\nYou step out of the room into a hallway...\nWhich way do you want to go?\nleft/right",
         "left": "enemy",
         "right": "enemy"
       },
 
     "enemy": {
-      "message": "There is an enemy standing in front of you, holding a sword. The options: Fight/Scream/Run/Make peace.",
-      "B": "",
-      "C": "",
-      "D": ""
+      "message": "There is a strange man standing in front of you, holding a sword.\nDo you want to fight him or runaway?",
+      "runaway": "run"
+    },
+
+    "run": {
+      "message": "You run as fast as you can without looking back... You climb down the stairs and eventually find yourself out the building. You look around and discover that you're surrounded by a forest."
     },
 
     "continue": {

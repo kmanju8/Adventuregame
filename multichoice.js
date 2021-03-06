@@ -65,4 +65,3 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice,"&encode=
 return damage;
 }
 
- 
