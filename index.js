@@ -9,8 +9,12 @@ const require = createRequire(import.meta.url);
 
 // prompt sync 
 
+
 // import promptSync from 'prompt-sync';
 // const prompt = promptSync({sigint: true});
+
+// readline
+
 
 // readline
 
@@ -112,4 +116,3 @@ function startGame() {
 };
 
 startGame()
-
