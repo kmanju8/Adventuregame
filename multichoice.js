@@ -50,7 +50,8 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice,"&encode=
             }
             correct = true;
             console.log("Correct!")
-        } else{
+            console.log("Congatulations. You have won the fight!")
+            } else {
             console.log("Incorrect! You take 2 damage.")
             damage = -2;
         }
@@ -64,5 +65,3 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice,"&encode=
 return damage;
 }
 
-//Use this to test if function works by running multichoice.js  
-multiChoiceBat("easy");
