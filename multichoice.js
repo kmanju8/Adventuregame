@@ -1,115 +1,67 @@
-import * as char from "./charactersClass.js"
-import {shuffleArray, multiChoiceBat} from "./multichoice.js";
 import { createRequire } from 'module';
-import { moveMessagePortToContext } from "node:worker_threads";
-import { resolve } from "node:path";
 const require = createRequire(import.meta.url);
 
+export function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
+//Function takes difficulty input. Depending on choice of difficulty, damage output is changed.
+//Function returns damage done. If positive, damage applied to enemy, if negative, applied to player.
+export function multiChoiceBat(choice){
 
-// prompt sync 
-
-// import promptSync from 'prompt-sync';
-// const prompt = promptSync({sigint: true});
-
-// readline
-
-const rl = require("readline");
-const readline = rl.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+const fetch = require('node-fetch');
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
 
-// JSON file parsing containing story decision logic and dialogue
+let damage=0;
+let correct = false;
+//choice will be user choice of difficulty, to change damage output
+fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(choice,"&encode=url3986"))
+.then(request=>request.json()).then(function(data){
 
-const fs = require('fs');
-let rawstep = fs.readFileSync('steps.json');
-const steps = JSON.parse(rawstep);
-
-// start game
-
-function startGame() {
-
-  let currentStep = "start"; 
-
-  function logStep() {
-    const step = steps[currentStep];
-
-    if (step) {
-      readline.question(`${step.message || ""} `, (input) => {
-        handleAnswer(input);
-
-      });
+    const difficulty = data.results[0].difficulty;
+    const answers = data.results[0].incorrect_answers;
+    answers.push(data.results[0].correct_answer);
+    shuffleArray(answers);
+    console.log(decodeURIComponent(data.results[0].question));
+    for(const i in answers){
+        console.log((parseInt(i)+1),")",decodeURIComponent(answers[i]));
     }
-  }
-
-  // story function 
-
-    function handleAnswer(answer) {
-    let step;
-
-    if (answer == steps[currentStep].message) {
-      console.log("Nice try."); 
-    } else if (answer in steps[currentStep]){
-      step = steps[currentStep][answer];
-    } else if ("default" in steps[currentStep]) {
-      step = steps[currentStep].default;
-    } else if (answer.toLowerCase() === "fight") {
-      char.chooseEnemy();
-      startFight();
-      console.log('Fight is finished!')
-    } else if (answer.toLowerCase() === "continue") {
-      step = "continue";
-    } else {
-      step = "end";
-    }
-
-    /* if (typeof step === "function") {
-      step();
-      return; 
-    } */ 
-
-    if (typeof step === "string") {
-      currentStep = step;
-    } else {
-      currentStep = "end";
-    }
-    logStep();
-  }
-
-    const trivia = () => {
-        return new Promise((resolve, reject) => {
-          readline.question("To win this fight, you must correctly answer a trivia question. What difficulty do you choose? easy/medium/hard ", (answer) => {
-              multiChoiceBat(answer);
-              resolve()
-        })
-        })
-    }
-
-    /* const moveOn = () => {
-        return new Promise((resolve, reject) => {
-          readline.question("You have completed your fight! Enter continue to proceed...", (answer) => {
-            handleAnswer(answer)
-            resolve()
-          })
-        })
-      } */ 
-
-
     
-    
+    readline.question("", ans => {
+        if(answers[parseInt(ans)-1]===data.results[0].correct_answer){
+            switch(difficulty){
+                case "easy":
+                    damage = 3;
+                    break;
+                case "medium":
+                    damage = 5;
+                    break;
+                case "hard":
+                    damage = 7;
+                    break;
+            }
+            correct = true;
+            console.log("Correct!")
+            console.log("Congatulations. You have won the fight!")
+            } else {
+            console.log("Incorrect! You take 2 damage.")
+            damage = -2;
+        }
+        readline.close();
+    })
+}).catch(function () {
+    console.log("Whoops, there was an error in the program. Have a free 2 damage on us ;)");
+    damage = 2;
+});
 
-    const startFight = async () => {
-    try {
-        await trivia();
-    } catch (err) {
-        console.log("Error!")
-    }
-    }
-
-    console.clear();
-    logStep();
-};
-
-startGame()
+return damage;
+}
 
