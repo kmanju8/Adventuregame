@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 const require = createRequire(import.meta.url);
 
 import promptSync from 'prompt-sync';
-const prompt = promptSync({sigint: true});
+var prompt = require('prompt-sync')();
 
 const rl = require("readline");
 const readline = rl.createInterface({
@@ -19,7 +19,7 @@ const fs = require('fs');
 let rawstep = fs.readFileSync('steps.json');
 const steps = JSON.parse(rawstep);
 
-function startGame() {
+export function startGame() {
 
   let currentStep = "start"; 
 
@@ -64,38 +64,16 @@ function startGame() {
     logStep();
   }
 
-    const trivia = () => {
-        return new Promise((resolve, reject) => {
-          readline.question("To win this fight, you must correctly answer a trivia question. What difficulty do you choose? easy/medium/hard ", (answer) => {
-              multiChoiceBat(answer);
-              resolve()
-        })
-        })
-    }
 
-    const moveOn = () => {
-        return new Promise((resolve, reject) => {
-          readline.question("You have completed your fight! Enter continue to proceed...", (answer) => {
-            handleAnswer(answer)
-            resolve()
-          })
-        })
-      }
+    const startFight = () => {
+          multiChoiceBat();
+          handleAnswer("continue");
 
-    const startFight = async () => {
-    try {
-        await trivia();
-        await moveOn();
-    } catch (err) {
-        console.log("Error!")
     }
-    }
-
+    
     console.clear();
     logStep();
 };
-
-
 
 
 

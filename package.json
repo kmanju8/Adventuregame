@@ -6,12 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "multichoice": "node multichoice.js"
+    "multichoice": "node multichoice.js",
+    "index": "node index.js"
   },
   "author": "Diran Solaymon, Keshav Manju, Tianqi Bu",
   "license": "ISC",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "prompt-sync": "^4.2.0"
   }
-
 }
