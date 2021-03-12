@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 var prompt = require('prompt-sync')();
 
 
-export function shuffleArray(array) {
+function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
@@ -39,6 +39,7 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(temp,"&encode=ur
         console.log((parseInt(i)+1),")",decodeURIComponent(answers[i]));
     }
     
+
     let ans = prompt()
     if(answers[parseInt(ans)-1]===data.results[0].correct_answer){
         switch(difficulty){
@@ -51,6 +52,7 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(temp,"&encode=ur
             case "hard":
                 damage = 7;
                 break;
+
         }
         correct = true;
         console.log("Correct!")
@@ -70,3 +72,4 @@ fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(temp,"&encode=ur
 
 //Use this to test if function works by running multichoice.js  
 //multiChoiceBat("easy");
+
