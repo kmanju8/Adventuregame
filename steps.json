@@ -54,7 +54,7 @@
 
     "continue": {
       "message": "Where would you like to go next?",
-      "A":"",
+      "A":"firstStep",
       "B": "",
       "C": "",
       "D": ""
