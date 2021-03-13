@@ -60,6 +60,7 @@ function startGame() {
   let correct = false;
   //choice will be user choice of difficulty, to change damage output
   let questiondat;
+  //there is still technically a hidden synchronicity issue here. On running, fetch always catches, resulting in the code block in catch() executing. Left blank as hackaround.
   await fetch("https://opentdb.com/api.php?amount=2&difficulty=".concat(temp,"&encode=url3986")).then(response => {return response.json();}).then(data =>  { questiondat = data;}).catch(console.log(""));
   
   const difficulty = questiondat.results[0].difficulty;
@@ -91,7 +92,10 @@ function startGame() {
       console.log("Incorrect! You take 2 damage.")
       damage = -2;
   }
-  handleAnswer("continue");
+  if (typeof(difficulty)==="string"){
+    
+    handleAnswer("continue");
+  }
   }
 
   // story function 
@@ -107,7 +111,7 @@ function startGame() {
       step = steps[currentStep].default;
     } else if (answer.toLowerCase() === "fight") {
       char.chooseEnemy();
-      multiChoiceBat().then(step="continue");
+      await multiChoiceBat();
     } else if (answer.toLowerCase() === "continue") {
       step = "continue";
     } else {
@@ -119,6 +123,7 @@ function startGame() {
     } else {
       currentStep = "end";
     }
+    
     logStep();
   }
 

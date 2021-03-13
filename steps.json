@@ -12,7 +12,7 @@
     },
 
     "firstStep": {
-      "message": "Welcome to Quiz Quest. This is a text based adventure game written in Node.js. The aim of the game is win your freedom by battling against your enemies and defeat them with your trivia knowledege... Would you like to start your adventure? yes/no",
+      "message": "Welcome to Quiz Quest. This is a text based adventure game written in Node.js. \nThe aim of the game is win your freedom by battling against your enemies and defeat them with your trivia knowledege...\nWould you like to start your adventure? yes/no",
       "yes": "secondStep",
       "no": "end"
     },
